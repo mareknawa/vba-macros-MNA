@@ -81,22 +81,17 @@ Public Function sendEmail(receiver As String, text As String, Optional sendMail 
 End Function
 
 Public Function QuestionList(questionsNr As Integer, listLenght As Integer) As String
-    Dim questionsStr As String: questionsStr = ""
-    Dim questionsCol As New Collection
+    Dim questionsDic: Set questionsDic = CreateObject("Scripting.Dictionary")
     
-    myValue = Int((questionsNr * Rnd) + 1)
-    questionsStr = myValue
-    questionsCol.Add "1", Str(myValue)
-    questionsStr = myValue
     Do
         On Error Resume Next
         myValue = Int((questionsNr * Rnd) + 1)
-        questionsCol.Add "1", Str(myValue)
-        questionsStr = questionsStr & ", " & myValue
-    Loop Until (questionsCol.Count = listLenght)
+        questionsDic.Add Str(myValue), "1"
+    Loop Until (questionsDic.Count = listLenght)
     
-    QuestionList = questionsStr
+    QuestionList = Join(questionsDic.Keys, ",")
 End Function
+
 
 Public Function StringFormat(ByVal mask As String, ParamArray tokens()) As String
  
