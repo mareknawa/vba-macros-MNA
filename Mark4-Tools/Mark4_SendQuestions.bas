@@ -25,7 +25,7 @@ Sub CreateEmailSet()
         Worksheets("Variables").Cells(1, 2) = runOffset + 1
     End If
     
-    Randomize
+    Randomize ' initialization of random number generator
       
     ' Create Collection of team members
     For x = 1 To teamSize
@@ -85,7 +85,8 @@ Public Function QuestionList(questionsNr As Integer, listLenght As Integer) As S
     
     Do
         On Error Resume Next
-        myValue = Int((questionsNr * Rnd) + 1)
+        ' ((upperbound - lowerbound + 1) * Rnd + lowerbound) - start from 2nd question because 1st one is feedback receiver
+        myValue = Int((questionsNr - 2 + 1) * Rnd + 2)
         questionsDic.Add Str(myValue), "1"
     Loop Until (questionsDic.Count = listLenght)
     
